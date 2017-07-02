@@ -771,10 +771,15 @@ Object.assign( Object3D.prototype, EventDispatcher.prototype, {
 
 				if ( object.geometry ) object.geometry.dispose();
 				if ( object.material ) {
+
 					if ( Array.isArray( object.material ) ) {
-						object.material.forEach( function(material) { disposeObjectAndMaps(material); } );
+
+						object.material.forEach( function( material ) { disposeObjectAndMaps( material ); } );
+
 					} else {
-						disposeObjectAndMaps(object);
+
+						disposeObjectAndMaps( object );
+
 					}
 				}
 
