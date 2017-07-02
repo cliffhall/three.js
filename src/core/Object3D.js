@@ -761,9 +761,45 @@ Object.assign( Object3D.prototype, EventDispatcher.prototype, {
 
 		return this;
 
+	},
+
+	dispose: function( removeChildren ) {
+
+		this.traverse( function( object ) {
+
+			if ( object && object.isObject3D  ) {
+
+				if ( object.geometry ) object.geometry.dispose();
+				if ( object.material ) {
+					if ( Array.isArray( object.material ) ) {
+						object.material.forEach( function(material) { disposeObjectAndMaps(material); } );
+					} else {
+						disposeObjectAndMaps(object);
+					}
+				}
+
+			}
+
+			function disposeObjectAndMaps(object)
+			{
+				if ( object.map && object.map.isTexture ) object.map.dispose();
+				if ( object.alphaMap && object.alphaMap.isTexture ) object.alphaMap.dispose();
+				if ( object.lightMap && object.lightMap.isTexture ) object.lightMap.dispose();
+				if ( object.bumpMap && object.bumpMap.isTexture ) object.bumpMap.dispose();
+				if ( object.normalMap && object.normalMap.isTexture ) object.normalMap.dispose();
+				if ( object.displacementMap && object.displacementMap.isTexture ) object.displacementMap.dispose();
+				if ( object.roughnessMap && object.roughnessMap.isTexture ) object.roughnessMap.dispose();
+				if ( object.metalnessMap && object.metalnessMap.isTexture ) object.metalnessMap.dispose();
+				if ( object.emissiveMap && object.emissiveMap.isTexture ) object.emissiveMap.dispose();
+				if ( object.specularMap && object.specularMap.isTexture ) object.specularMap.dispose();
+				if ( object.envMap && object.envMap.isTexture ) object.envMap.dispose();
+				if ( object.gradientMap && object.gradientMap.isTexture ) object.gradientMap.dispose();
+				if ( object.dispose ) object.dispose();
+			}
+
+		});
 	}
 
 } );
-
 
 export { Object3D };
