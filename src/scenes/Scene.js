@@ -46,25 +46,6 @@ Scene.prototype = Object.assign( Object.create( Object3D.prototype ), {
 
 		return data;
 
-	},
-
-	dispose: function() {
-
-		this.traverse( object => {
-
-			if ( object ) {
-
-				if ( object.geometry ) object.geometry.dispose();
-				if ( object.material ) {
-					if ( object.material.map ) object.material.map.dispose();
-					object.material.dispose();
-				}
-				this.remove( object );
-
-			}
-
-		});
-
 	}
 
 } );
