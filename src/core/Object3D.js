@@ -763,7 +763,7 @@ Object.assign( Object3D.prototype, EventDispatcher.prototype, {
 
 	},
 
-	dispose: function( removeChildren ) {
+	dispose: function() {
 
 		this.traverse( function( object ) {
 
